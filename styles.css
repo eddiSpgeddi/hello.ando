@@ -1,0 +1,83 @@
+/* "17 characters, spaces included */
+.tw-loop {
+  /* width has no effect on inline elements */
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  /* without this the 2px cursor border comes out of the 21ch and
+     the last glyph loses its final two pixels */
+  box-sizing: content-box;
+  width: 0;
+  font-family: Consolas, monospace;
+  font-size: 2rem;
+  color: #b8ff57;
+  border-right: 2px solid #b8ff57;
+  animation:
+    tw-loop-type 6s steps(17) infinite,
+    tw-cursor .7s step-end infinite;
+}
+
+/* only changes the colour; the parent's width animation still reveals it */
+.tw-accent {
+  color: #ff5fd2;
+}
+
+.tw-punctuation {
+  color: #ffac5f;
+}
+
+/* single ASCII characters only: the typing animation assumes a fixed
+   17ch width, so a longer string or a glyph from a fallback font would
+   shift or clip the line */
+.tw-punctuation::after {
+  content: '?';
+  /* 2s loop: each 4% step is 80ms, so the 8 characters take 640ms and
+     the '?' at 32% holds for the remaining 1.36s as the pause */
+  animation: tw-punctuation-cycle 2s step-end infinite;
+}
+
+/* step-end holds each value until the next keyframe */
+@keyframes tw-punctuation-cycle {
+  0%   { content: '?'; }
+  4%   { content: '!'; }
+  8%   { content: '#'; }
+  12%  { content: '*'; }
+  16%  { content: '&'; }
+  20%  { content: '%'; }
+  24%  { content: '@'; }
+  28%  { content: '$'; }
+  32%  { content: '?'; }
+  100% { content: '?'; }
+}
+
+@keyframes tw-cursor {
+  /* 0% {
+
+    padding-right: -5px;
+  } */
+  50% {
+    border-color: transparent;
+    /* padding-right: -5px; */
+  }
+}
+
+/* the timing function applies to each segment on its own, so the two
+   held segments are the pause and the other two run at one step each */
+@keyframes tw-loop-type {
+  0%   { width: 0; }
+  35%  { width: 17ch; }
+  65%  { width: 17ch; }
+  90%  { width: 0; }
+  100% { width: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tw-loop {
+    animation: none;
+    width: 17ch;
+  }
+
+  .tw-punctuation::after {
+    animation: none;
+  }
+}
