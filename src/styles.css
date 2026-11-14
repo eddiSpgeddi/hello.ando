@@ -1,3 +1,24 @@
+
+
+/* light mode: the fluro shades are too pale to read on a white background,
+   so these are deeper versions of the same hues */
+:root {
+  --fluro-green: #3d7a00;
+  --fluro-pink: #c0148f;
+  --fluro-orange: #b35400;
+}
+
+/* dark mode: same variable names, so every rule using var() switches too.
+   This matches Tailwind's default dark: variant, which also follows the
+   system setting */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fluro-green: #b8ff57;
+    --fluro-pink: #ff5fd2;
+    --fluro-orange: #ffac5f;
+  }
+}
+
 /* "17 characters, spaces included */
 .tw-loop {
   /* width has no effect on inline elements */
@@ -10,8 +31,8 @@
   width: 0;
   font-family: Consolas, monospace;
   font-size: 2rem;
-  color: #b8ff57;
-  border-right: 2px solid #b8ff57;
+  color: var(--fluro-green);
+  border-right: 2px solid var(--fluro-green);
   animation:
     tw-loop-type 6s steps(17) infinite,
     tw-cursor .7s step-end infinite;
@@ -19,11 +40,11 @@
 
 /* only changes the colour; the parent's width animation still reveals it */
 .tw-accent {
-  color: #ff5fd2;
+  color: var(--fluro-pink);
 }
 
 .tw-punctuation {
-  color: #ffac5f;
+  color: var(--fluro-orange);
 }
 
 /* single ASCII characters only: the typing animation assumes a fixed
