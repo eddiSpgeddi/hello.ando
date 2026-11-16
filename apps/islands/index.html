@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Islands in plain HTML</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <p class="eyebrow">apps/islands</p>
+      <h1>Islands in plain HTML</h1>
+      <!--
+        Plain TS island, loaded on first hover or focus. The button is real HTML,
+        so it's visible before any JS runs; the island adds behaviour to it.
+      -->
+      <div data-island="theme-toggle" data-load="interaction" data-framework="vanilla">
+        <button class="ui-button" type="button" aria-pressed="false">Theme: system</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <p>
+        This page is static HTML. The dashed boxes are islands: each mounts its own framework,
+        loaded only when its trigger fires. Open the network tab to watch each framework's chunk
+        arrive.
+      </p>
+
+      <section>
+        <h2>Svelte, loaded when idle</h2>
+        <div
+          data-island="counter"
+          data-load="idle"
+          data-framework="svelte"
+          data-props='{"start": 3}'
+        >
+          <!-- fallback until the island mounts -->
+          <button class="ui-button ui-button--primary" type="button" disabled>
+            Clicked 3 times
+          </button>
+        </div>
+      </section>
+
+      <section class="spacer">
+        <p>Scroll down. The React island below isn't loaded until it comes into view.</p>
+      </section>
+
+      <section>
+        <h2>React, loaded when visible</h2>
+        <p>
+          It listens for the Svelte counter's <code>counter:change</code> DOM event. Frameworks
+          can't share state or context, so islands talk through the DOM.
+        </p>
+        <div data-island="log" data-load="visible" data-framework="react" data-props='{"limit": 5}'>
+          <p class="muted">Loading the event log…</p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/islands.ts"></script>
+  </body>
+</html>

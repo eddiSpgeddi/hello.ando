@@ -1,0 +1,83 @@
+@import "design-system";
+@import "ui/styles.css";
+
+body {
+  padding: var(--space-6) var(--gutter);
+}
+
+.page-header,
+.page {
+  max-width: var(--container-md);
+  margin-inline: auto;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.page-header h1 {
+  margin: 0;
+}
+
+.eyebrow {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+section {
+  margin-block: var(--space-7);
+}
+
+.spacer {
+  min-height: 120vh;
+  color: var(--color-text-muted);
+}
+
+.muted {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.log {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+/* Outline each island and label it with its framework and load state, so the
+   demo shows what's happening. Delete this block in real use. */
+[data-island] {
+  position: relative;
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  border: var(--border-width) dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+}
+
+[data-island]::before {
+  content: attr(data-framework) " · " attr(data-load) " · " attr(data-state);
+  position: absolute;
+  top: calc(-1 * var(--space-3));
+  left: var(--space-3);
+  padding-inline: var(--space-1);
+  background-color: var(--color-bg);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+[data-island][data-state="mounted"] {
+  border-style: solid;
+  border-color: var(--color-accent);
+}
+
+[data-island][data-state="error"] {
+  border-color: var(--color-danger);
+}

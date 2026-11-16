@@ -22,11 +22,9 @@ jobs:
       - uses: actions/checkout@v4
 
       # placeholder build: replace with a real build step later
-      - name: Copy src to dist
+      - name: Build site
         run: |
-          rm -rf dist
-          mkdir -p dist
-          cp -R src/. dist/
+          vp -C apps/website build --outDir ../../dist
 
       - uses: actions/configure-pages@v5
 

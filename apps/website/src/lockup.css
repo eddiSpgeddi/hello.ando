@@ -1,0 +1,149 @@
+@import "design-system";
+
+/* Dev-only lockup preview for apps/website/lockup.html */
+
+.page {
+  max-width: var(--container-lg);
+  margin: 0 auto;
+  padding: var(--space-8) var(--gutter) var(--space-9);
+  display: grid;
+  gap: var(--space-8);
+}
+
+.intro {
+  max-width: var(--measure);
+}
+
+.eyebrow,
+.caption {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.block {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.block h2 {
+  font-size: var(--text-xl);
+  margin: 0;
+}
+
+/* the mark: same colours as favicon.svg, via semantic tokens */
+.eye {
+  stroke: var(--logo-eye);
+}
+.nose {
+  fill: var(--color-accent-alt);
+}
+
+.lockup {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: var(--text-4xl);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+}
+.lockup b {
+  font-weight: inherit;
+  color: var(--color-accent);
+}
+.mark {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
+.w-500 {
+  font-weight: var(--weight-medium);
+}
+.w-700 {
+  font-weight: var(--weight-bold);
+}
+.w-900 {
+  font-weight: 900;
+}
+
+.rows {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.variants {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: var(--space-6);
+}
+.cell {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  min-width: 0;
+}
+.cell .lockup {
+  font-size: var(--text-3xl);
+}
+
+.lockup.stacked {
+  align-items: flex-start;
+  line-height: 0.95;
+}
+.lockup.stacked .mark {
+  width: 2em;
+  height: 2em;
+}
+
+.tile {
+  display: grid;
+  place-items: center;
+  width: 1.3em;
+  height: 1.3em;
+  flex: none;
+  border-radius: 22%;
+  background: light-dark(var(--gray-800), var(--gray-0));
+}
+.tile .eye {
+  stroke: light-dark(var(--green-300), var(--green-600));
+}
+.tile .nose {
+  fill: light-dark(var(--pink-300), var(--pink-600));
+}
+.tile .mark {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.cell .lockup.small {
+  font-size: var(--text-lg);
+  gap: 0.35em;
+}
+
+/* outlined wordmark: wordmark.svg reads design-system tokens through <use> */
+.wordmark {
+  display: block;
+  width: auto;
+  max-width: 100%;
+}
+.wm-lg {
+  height: 4rem;
+}
+.wm-md {
+  height: 2rem;
+}
+.wm-sm {
+  height: 1.25rem;
+}
+
+.outfit-example {
+  font-family: "Outfit Variable", var(--font-sans);
+  font-weight: 300;
+}

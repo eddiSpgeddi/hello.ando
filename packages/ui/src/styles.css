@@ -1,0 +1,9 @@
+/*
+ * All component styles. Load design-system first so the tokens exist.
+ *
+ * Components sit in the ds.components layer, after ds.base, so they beat
+ * element defaults while any unlayered app CSS still beats them.
+ */
+@layer ds.base, ds.components;
+
+@import "./button/button.css";

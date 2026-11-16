@@ -1,0 +1,175 @@
+/*
+ * Design tokens.
+ *
+ * Two layers:
+ *   1. Primitives: raw values (--gray-800, --green-600). Don't use these in
+ *      components; they exist so the semantic layer has names to point at.
+ *   2. Semantic tokens: what a value is for (--color-text, --space-4). Use
+ *      these everywhere else.
+ *
+ * Theming: colours use light-dark(), which follows `color-scheme`. By default
+ * the page follows the system setting. Set data-theme="light" or
+ * data-theme="dark" on <html> to force one.
+ *
+ * Every semantic text/UI colour is checked for WCAG AA against --color-bg and
+ * --color-surface in both themes by tests/contrast.test.ts.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  /* ── Primitives: colour ─────────────────────────────────────────────── */
+
+  --gray-0: #ffffff;
+  --gray-50: #f4f5f7;
+  --gray-100: #e3e6eb;
+  --gray-300: #aeb7c4;
+  --gray-400: #7b8494;
+  --gray-600: #566173;
+  --gray-700: #36435a;
+  --gray-750: #273347;
+  --gray-800: #1e2939;
+
+  /* -600 shades are for light backgrounds, -300 for dark ones */
+  --green-300: #b8ff57;
+  --green-600: #3d7a00;
+  --pink-300: #ff5fd2;
+  --pink-600: #c0148f;
+  --orange-300: #ffac5f;
+  --orange-600: #b35400;
+  --red-300: #ff8a7a;
+  --red-600: #c42b1c;
+
+  /* ── Semantic: colour ─── light-dark(<light theme>, <dark theme>) ───── */
+
+  /* backgrounds */
+  --color-bg: light-dark(var(--gray-0), var(--gray-800));
+  --color-surface: light-dark(var(--gray-50), var(--gray-750));
+
+  /* text */
+  --color-text: light-dark(var(--gray-800), var(--gray-50));
+  --color-text-muted: light-dark(var(--gray-600), var(--gray-300));
+
+  /* brand */
+  --color-accent: light-dark(var(--green-600), var(--green-300));
+  --color-accent-alt: light-dark(var(--pink-600), var(--pink-300));
+  --color-highlight: light-dark(var(--orange-600), var(--orange-300));
+  /* text or icons placed on a solid --color-accent background */
+  --color-on-accent: light-dark(var(--gray-0), var(--gray-800));
+  /* the o.o mark's eyes, as in favicon.svg and wordmark.svg: the accent green
+     in both themes (deep green in light, lime in dark). The nose uses
+     --color-accent-alt. */
+  --logo-eye: var(--color-accent);
+
+  /* status */
+  --color-danger: light-dark(var(--red-600), var(--red-300));
+
+  /* lines. --color-border is decorative only (dividers, card edges) and is
+     exempt from contrast rules. Anything that marks a control the user must
+     find, like an input outline, uses --color-border-strong (3:1). */
+  --color-border: light-dark(var(--gray-100), var(--gray-700));
+  --color-border-strong: var(--gray-400);
+
+  /* interaction */
+  --color-link: var(--color-accent);
+  --color-focus: var(--color-accent-alt);
+
+  /* ── Typography ─────────────────────────────────────────────────────── */
+
+  /* Satoshi is self-hosted in fonts.css; the stack falls back cleanly */
+  --font-sans: "Satoshi", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: Consolas, ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* the scale is fixed up to 2xl, then grows with the viewport */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: clamp(1.75rem, 1.4rem + 1.5vw, 2.25rem); /* 28 → 36px */
+  --text-4xl: clamp(2.25rem, 1.6rem + 3vw, 3.5rem); /* 36 → 56px */
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.6;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+
+  /* comfortable line length for running text */
+  --measure: 65ch;
+
+  /* ── Spacing (4px base) ─────────────────────────────────────────────── */
+
+  --space-0: 0;
+  --space-1: 0.25rem; /*  4px */
+  --space-2: 0.5rem; /*  8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.5rem; /* 24px */
+  --space-6: 2rem; /* 32px */
+  --space-7: 3rem; /* 48px */
+  --space-8: 4rem; /* 64px */
+  --space-9: 6rem; /* 96px */
+
+  /* ── Layout ─────────────────────────────────────────────────────────── */
+
+  --container-sm: 40rem; /*  640px */
+  --container-md: 48rem; /*  768px */
+  --container-lg: 64rem; /* 1024px */
+  --gutter: clamp(var(--space-4), 4vw, var(--space-6));
+
+  /* ── Shape ──────────────────────────────────────────────────────────── */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --border-width: 1px;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* ── Elevation ──────────────────────────────────────────────────────── */
+
+  --shadow-color: light-dark(rgb(30 41 57 / 0.12), rgb(0 0 0 / 0.4));
+  --shadow-sm: 0 1px 2px var(--shadow-color);
+  --shadow-md: 0 4px 6px -2px var(--shadow-color), 0 10px 15px -3px var(--shadow-color);
+
+  --z-base: 0;
+  --z-raised: 10;
+  --z-overlay: 100;
+  --z-modal: 1000;
+
+  /* ── Motion ─────────────────────────────────────────────────────────── */
+
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 400ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* anything animated with the duration tokens stops moving for people who ask */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "design-system",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Design tokens and base styles for hello.ando, as plain CSS.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.css",
+    "./tokens.css": "./src/tokens.css",
+    "./base.css": "./src/base.css",
+    "./fonts.css": "./src/fonts.css",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "test": "vp test",
+    "check": "vp check"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2",
+    "vite-plus": "catalog:"
+  }
+}
