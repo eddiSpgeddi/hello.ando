@@ -19,8 +19,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: voidzero-dev/setup-vp@v1.22.0
+      # checkout first: setup-vp runs `vp install`, which needs package.json
       - uses: actions/checkout@v4
+      - uses: voidzero-dev/setup-vp@v1.22.0
 
       # placeholder build: replace with a real build step later
       - name: Build site
