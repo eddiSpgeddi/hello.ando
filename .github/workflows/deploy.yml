@@ -19,6 +19,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "26"
+          cache: "pnpm"
+
+      - name: Install safe-chain
+        run: |
+          curl -fsSL https://github.com/AikidoSec/safe-chain/releases/download/1.5.27/install-safe-chain.sh -o /tmp/install-safe-chain.sh
+          echo "600ebddcb3aaf1fd53653a8d7985df44528722c0f5ee7eb9fff86f26a1a4e5a8  /tmp/install-safe-chain.sh" | sha256sum -c -
+          sh /tmp/install-safe-chain.sh --ci
+          rm /tmp/install-safe-chain.sh
+
       # checkout first: setup-vp runs `vp install`, which needs package.json
       - uses: actions/checkout@v4
         with:
