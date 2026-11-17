@@ -1,0 +1,44 @@
+/*
+ * <ui-lockup>: the "~/hello.ando_" wordmark with a blinking cursor.
+ * Fira Code / JetBrains Mono are used when the page loads them, otherwise
+ * it falls back to --font-mono. Override font-size from app CSS to resize.
+ */
+@layer ds.components {
+  .ui-lockup {
+    display: flex;
+    gap: 0.1em;
+    font-family: "Fira Code", "JetBrains Mono", var(--font-mono);
+    font-weight: 500;
+    font-size: clamp(1.125rem, 1rem + 1vw, 1.625rem);
+    letter-spacing: -0.01em;
+
+    > span:nth-child(odd) {
+      color: var(--color-accent);
+    }
+
+    > span:nth-child(even) {
+      color: var(--color-text);
+    }
+
+    > span:first-child {
+      color: var(--color-highlight);
+    }
+
+    > span:last-child {
+      padding-left: 0.1em;
+      animation: ui-lockup-blink 1.1s steps(1) infinite;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ui-lockup > span:last-child {
+      animation: none;
+    }
+  }
+
+  @keyframes ui-lockup-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+}

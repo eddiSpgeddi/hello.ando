@@ -1,0 +1,65 @@
+/*
+ * Splash, timer version: the splash leaves after a fixed time. CSS only, no JS.
+ *
+ * Use: link it in <head> so it applies on the first paint:
+ *   <link rel="stylesheet" href="/src/components/splash/splash-timer.css" />
+ * The other version is splash-load.css + splash-load.ts. Use one, not both.
+ *
+ * Timeline (about 3.2s in total):
+ *   0–0.5s     the lockup fades in
+ *   0.5–2.2s   it holds
+ *   2.2–3.2s   the overlay fades out while the lockup grows to 2.5×,
+ *              slowly at first and then faster
+ * Change --splash-out-at to hold longer or shorter. Keep the 1s fade and the
+ * 1s grow the same length so they finish together.
+ */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  --splash-out-at: 2.2s;
+  animation: splash-out 1s ease-in var(--splash-out-at) forwards;
+}
+
+.splash .ui-lockup {
+  /* bigger than the component's default; scales down on narrow screens */
+  font-size: clamp(1.5rem, 1rem + 2.5vw, 2.5rem);
+  animation:
+    splash-lockup-in 0.5s ease-out both,
+    /* steep ease-in (expo): barely moves at first, then rushes forward as it fades */
+    splash-lockup-grow 1s cubic-bezier(0.7, 0, 0.84, 0) var(--splash-out-at) forwards;
+}
+
+@keyframes splash-lockup-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes splash-lockup-grow {
+  to {
+    scale: 2.5;
+  }
+}
+
+/* visibility: hidden at the end lets clicks reach the page */
+@keyframes splash-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* set by the inline script in index.html after the first page load of a visit */
+[data-splash="seen"] .splash {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash {
+    display: none;
+  }
+}

@@ -25,8 +25,11 @@ const html = `<button class="${buttonClass("primary")}">Save</button>`;
 | Component | Classes                                                                        | Helpers                       |
 | --------- | ------------------------------------------------------------------------------ | ----------------------------- |
 | Button    | `.ui-button`, `.ui-button--primary` (default: secondary), `.ui-button--icon` ¹ | `createButton`, `buttonClass` |
+| Lockup    | `<ui-lockup>` custom element (adds `.ui-lockup`) ²                             | `defineLockup`                |
 
 ¹ `.ui-button--icon` is a square, icon-only size that combines with either variant. Put an `<svg aria-hidden="true">` inside and give the button an `aria-label`.
+
+² Importing `"ui"` registers `<ui-lockup>`, so write `<ui-lockup></ui-lockup>` in HTML and it renders the `~/hello.ando_` wordmark. Screen readers announce it as "hello.ando". It uses Fira Code or JetBrains Mono if the page loads them, otherwise `--font-mono`. Set `font-size` in app CSS to resize it. The cursor stops blinking when the user has reduced motion turned on.
 
 ## Adding a component
 
