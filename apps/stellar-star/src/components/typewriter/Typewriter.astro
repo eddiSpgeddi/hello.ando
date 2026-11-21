@@ -1,0 +1,17 @@
+---
+import "./typewriter.css";
+---
+
+<!-- The lines take turns, one per 6s typing loop (see typewriter.css).
+     Screen readers get the static label, not the animated lines. -->
+<h1 class="tw-cycle">
+  <span class="tw-loop" aria-hidden="true"
+    >what's <span class="tw-accent">this</span> then<span class="tw-punctuation"></span></span
+  >
+  <span class="tw-loop" aria-hidden="true"
+    >watch <span class="tw-accent">this</span> space<span class="tw-punctuation second"
+    ></span></span
+  >
+  <!-- keep last: the cycle's :nth-child delays count from the first line -->
+  <span class="tw-label">what's this then? watch this space!</span>
+</h1>

@@ -1,0 +1,13 @@
+---
+// Dev-only preview, served at /lockup-animation by astro.config.mjs and not built.
+// Layout.astro loads design-system, ui/styles.css and registers <ui-lockup>.
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="hello.ando lockup animations">
+  <main class="page">
+    <section class="block" aria-labelledby="h-wordmark">
+      <ui-lockup></ui-lockup>
+    </section>
+  </main>
+</Layout>

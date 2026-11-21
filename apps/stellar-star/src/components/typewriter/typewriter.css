@@ -1,0 +1,217 @@
+/* 17 characters, spaces included */
+.tw-loop {
+  /* width has no effect on inline elements */
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  /* without this the 2px cursor border comes out of the 17ch and
+     the last glyph loses its final two pixels */
+  box-sizing: content-box;
+  width: 0;
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  /* reset what a heading parent passes down: bold changes the look, and any
+     letter-spacing throws off the 17ch width maths */
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-normal);
+  line-height: var(--leading-normal);
+  color: var(--color-accent);
+  border-right: 2px solid var(--color-accent);
+  animation:
+    tw-loop-type 6s steps(17) infinite,
+    tw-cursor 0.7s step-end infinite;
+}
+
+/* only changes the colour; the parent's width animation still reveals it */
+.tw-accent {
+  color: var(--color-accent-alt);
+}
+
+.tw-punctuation {
+  color: var(--color-highlight);
+}
+
+/* single ASCII characters only: the typing animation assumes a fixed
+   17ch width, so a longer string or a glyph from a fallback font would
+   shift or clip the line */
+.tw-punctuation::after {
+  content: "?";
+  /* 2s loop: each 4% step is 80ms, so the 8 characters take 640ms and
+     the '?' at 32% holds for the remaining 1.36s as the pause */
+  animation: tw-punctuation-cycle 2s step-end infinite;
+}
+
+/* step-end holds each value until the next keyframe */
+@keyframes tw-punctuation-cycle {
+  0% {
+    content: "?";
+  }
+  4% {
+    content: "!";
+  }
+  8% {
+    content: "#";
+  }
+  12% {
+    content: "*";
+  }
+  16% {
+    content: "&";
+  }
+  20% {
+    content: "%";
+  }
+  24% {
+    content: "@";
+  }
+  28% {
+    content: "$";
+  }
+  32% {
+    content: "?";
+  }
+  100% {
+    content: "?";
+  }
+}
+
+.tw-punctuation.second::after {
+  content: "!";
+  /* 2s loop: each 4% step is 80ms, so the 8 characters take 640ms and
+     the '!' at 32% holds for the remaining 1.36s as the pause */
+  animation: tw-punctuation-cycle-2 2s step-end infinite;
+}
+
+/* step-end holds each value until the next keyframe */
+@keyframes tw-punctuation-cycle-2 {
+  0% {
+    content: "!";
+  }
+  4% {
+    content: "?";
+  }
+  8% {
+    content: "#";
+  }
+  12% {
+    content: "*";
+  }
+  16% {
+    content: "&";
+  }
+  20% {
+    content: "%";
+  }
+  24% {
+    content: "@";
+  }
+  28% {
+    content: "$";
+  }
+  32% {
+    content: "!";
+  }
+  100% {
+    content: "!";
+  }
+}
+
+@keyframes tw-cursor {
+  /* 0% {
+
+    padding-right: -5px;
+  } */
+  50% {
+    border-color: transparent;
+    /* padding-right: -5px; */
+  }
+}
+
+/* the timing function applies to each segment on its own, so the two
+   held segments are the pause and the other two run at one step each */
+@keyframes tw-loop-type {
+  0% {
+    width: 0;
+  }
+  35% {
+    width: 17ch;
+  }
+  65% {
+    width: 17ch;
+  }
+  90% {
+    width: 0;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+/* Cycles its .tw-loop children: each one is visible for one 6s typing loop,
+   then hands over to the next. They all type in step the whole time, and
+   tw-loop-type is at width 0 from 5.4s to 6s, so each swap happens while
+   the line is empty. */
+.tw-cycle {
+  display: grid;
+}
+
+/* stack the lines in one cell so swapping them doesn't shift the layout */
+.tw-cycle > .tw-loop {
+  grid-area: 1 / 1;
+  /* grid items stretch by default; keep the animated width in charge */
+  justify-self: start;
+  visibility: hidden;
+  /* the shorthand replaces .tw-loop's list, so repeat its two animations.
+     tw-slot duration = number of lines × 6s */
+  animation:
+    tw-loop-type 6s steps(17) infinite,
+    tw-cursor 0.7s step-end infinite,
+    tw-slot 12s step-end infinite;
+}
+
+/* no fill-mode, so each line stays hidden during its delay */
+.tw-cycle > .tw-loop:nth-child(2) {
+  animation-delay: 0s, 0s, 6s;
+}
+
+/* visible for the first 1/N of the cycle: 50% for 2 lines, 33.333% for 3.
+   Adding a line: raise the tw-slot duration, change this percentage, and
+   give the new line a delay of (index × 6s). */
+@keyframes tw-slot {
+  0% {
+    visibility: visible;
+  }
+  50% {
+    visibility: hidden;
+  }
+}
+
+/* the heading's accessible name; hidden visually but still read out */
+.tw-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tw-loop,
+  .tw-cycle > .tw-loop {
+    animation: none;
+    width: 17ch;
+  }
+
+  /* show the first line, fully typed, and nothing else */
+  .tw-cycle > .tw-loop:first-child {
+    visibility: visible;
+  }
+
+  .tw-punctuation::after {
+    animation: none;
+  }
+}

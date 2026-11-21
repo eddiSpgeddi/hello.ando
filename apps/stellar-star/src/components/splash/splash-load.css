@@ -1,0 +1,88 @@
+/*
+ * Splash, load version: the splash stays until the page has loaded, for at
+ * least 1.5s and at most about 6s. splash-load.ts decides when it leaves by
+ * adding .splash-done to <html>; this file runs the animations.
+ *
+ * Use: Splash.astro imports this file (Astro puts it in <head>, so it applies
+ * on the first paint) and loads splash-load.ts.
+ * The other version is splash-timer.css. Use one, not both.
+ *
+ * Timeline:
+ *   0–0.5s       the lockup fades in
+ *   …            it holds until splash-load.ts adds .splash-done
+ *   then 1s      the overlay fades out while the lockup grows to 2.5×,
+ *                slowly at first and then faster
+ * Keep the 1s fade and the 1s grow the same length so they finish together.
+ */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+  /* Safety net: leave after 6s even if JS is off or load never fires. */
+  animation: splash-timeout 1s ease-in 6s forwards;
+}
+
+.splash-done .splash {
+  animation: splash-out 1s ease-in forwards;
+}
+
+.splash .ui-lockup {
+  /* bigger than the component's default; scales down on narrow screens */
+  font-size: clamp(1.5rem, 1rem + 2.5vw, 2.5rem);
+  animation: splash-lockup-in 0.5s ease-out both;
+}
+
+.splash-done .splash .ui-lockup {
+  animation:
+    /* same name as above, so the browser keeps it running rather than restarting it */
+    splash-lockup-in 0.5s ease-out both,
+    /* steep ease-in (expo): barely moves at first, then rushes forward as it fades */
+    splash-lockup-grow 1s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+@keyframes splash-lockup-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes splash-lockup-grow {
+  to {
+    scale: 2.5;
+  }
+}
+
+/* visibility: hidden at the end lets clicks reach the page */
+@keyframes splash-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/*
+ * The same as splash-out, but it needs its own name. The browser identifies a
+ * running animation by name: if the safety net were also called splash-out,
+ * adding .splash-done would only change its delay. It would then count as
+ * already part-way through and jump to the end, with no visible fade.
+ */
+@keyframes splash-timeout {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* set by the inline script in src/layouts/Layout.astro after the first page load of a visit */
+[data-splash="seen"] .splash {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash {
+    display: none;
+  }
+}

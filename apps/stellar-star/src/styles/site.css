@@ -1,0 +1,34 @@
+/* Site chrome for the home page. Tokens and ui styles come from Layout.astro. */
+
+.site-header {
+  max-width: var(--container-lg);
+  margin-inline: auto;
+  padding: var(--space-5) var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.site-main {
+  max-width: var(--container-lg);
+  margin-inline: auto;
+  padding: var(--space-6) var(--gutter);
+}
+
+.site-logo {
+  display: inline-block;
+  border-radius: var(--radius-sm);
+}
+
+.site-logo:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.site-logo svg {
+  display: block;
+  height: 1.75rem;
+  width: auto;
+  max-width: 100%;
+}

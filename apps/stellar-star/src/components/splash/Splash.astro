@@ -1,0 +1,18 @@
+---
+// Brief intro overlay. Two versions, use one:
+//   load  (this one): splash-load.css + splash-load.ts, waits for the page to load, 1.5s min
+//   timer (CSS only): import "./splash-timer.css" instead and drop the <script>
+import "./splash-load.css";
+---
+
+<!-- The spans are written out so it paints before ui's JS runs.
+     aria-hidden because it's decoration that's gone in about 3s. -->
+<div class="splash" aria-hidden="true">
+  <ui-lockup class="ui-lockup"
+    ><span>~/</span><span>hello</span><span>.</span><span>ando</span><span>_</span></ui-lockup
+  >
+</div>
+
+<script>
+  import "./splash-load.ts";
+</script>

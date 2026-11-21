@@ -1,0 +1,97 @@
+---
+// Dev-only preview, served at /lockup by astro.config.mjs and not built.
+import Layout from "../layouts/Layout.astro";
+import "../styles/lockup.css";
+---
+
+<!-- Satoshi is self-hosted by design-system, loaded in Layout.astro -->
+<Layout title="hello.ando lockups">
+  <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+    <symbol id="face" viewBox="0 0 64 64">
+      <circle class="eye" cx="19" cy="29" r="8.5" fill="none" stroke-width="6" />
+      <circle class="eye" cx="45" cy="29" r="8.5" fill="none" stroke-width="6" />
+      <circle class="nose" cx="32" cy="41.5" r="4" />
+    </symbol>
+  </svg>
+
+  <main class="page">
+    <header class="intro">
+      <p class="eyebrow">src/previews/lockup.astro · dev preview</p>
+      <h1>Lockups in Satoshi</h1>
+      <p>
+        The o.o mark with the name set in the real site font. Colours come from the design-system
+        tokens, so the page follows your light or dark setting the same way the favicon does.
+      </p>
+      <h3>Same sentence in Outfit</h3>
+      <p class="outfit-example">
+        The o.o mark with the name set in the real site font. Colours come from the design-system
+        tokens, so the page follows your light or dark setting the same way the favicon does.
+      </p>
+    </header>
+
+    <section class="block" aria-labelledby="h-wordmark">
+      <h2 id="h-wordmark">Wordmark (public/wordmark.svg)</h2>
+      <p class="caption">
+        Outfit Bold, outlined. Referenced with &lt;use&gt;, so it follows the page theme
+      </p>
+      <div class="rows">
+        <svg class="wordmark wm-lg" viewBox="0 0 6177.8 887.4" role="img" aria-label="hello.ando">
+          <use href="/wordmark.svg#logo" />
+        </svg>
+        <svg class="wordmark wm-md" viewBox="0 0 6177.8 887.4" role="img" aria-label="hello.ando">
+          <use href="/wordmark.svg#logo" />
+        </svg>
+        <svg class="wordmark wm-sm" viewBox="0 0 6177.8 887.4" role="img" aria-label="hello.ando">
+          <use href="/wordmark.svg#logo" />
+        </svg>
+      </div>
+      <p class="caption">
+        As a plain &lt;img&gt;: follows the system light/dark setting only, not a site toggle
+      </p>
+      <img class="wordmark wm-md" src="/wordmark.svg" alt="hello.ando" />
+    </section>
+
+    <section class="block" aria-labelledby="h-horizontal">
+      <h2 id="h-horizontal">Horizontal, by weight</h2>
+      <div class="rows">
+        <div class="lockup w-500">
+          <svg class="mark"><use href="#face" /></svg><span>hello<b>.</b>ando</span>
+        </div>
+        <div class="lockup w-700">
+          <svg class="mark"><use href="#face" /></svg><span>hello<b>.</b>ando</span>
+        </div>
+        <div class="lockup w-900">
+          <svg class="mark"><use href="#face" /></svg><span>hello<b>.</b>ando</span>
+        </div>
+      </div>
+      <p class="caption">Satoshi Medium 500 · Bold 700 · Black 900</p>
+    </section>
+
+    <section class="block" aria-labelledby="h-variants">
+      <h2 id="h-variants">Other arrangements</h2>
+      <div class="variants">
+        <div class="cell">
+          <div class="lockup stacked w-700">
+            <svg class="mark"><use href="#face" /></svg>
+            <span>hello<b>.</b><br />ando</span>
+          </div>
+          <p class="caption">Stacked</p>
+        </div>
+        <div class="cell">
+          <div class="lockup tiled w-700">
+            <span class="tile"
+              ><svg class="mark"><use href="#face" /></svg></span
+            ><span>hello<b>.</b>ando</span>
+          </div>
+          <p class="caption">Tiled mark, as in the touch icon</p>
+        </div>
+        <div class="cell">
+          <div class="lockup small w-700">
+            <svg class="mark"><use href="#face" /></svg><span>hello<b>.</b>ando</span>
+          </div>
+          <p class="caption">Nav size, 18px</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

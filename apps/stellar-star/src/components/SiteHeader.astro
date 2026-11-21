@@ -1,0 +1,22 @@
+<header class="site-header">
+  <a class="site-logo" href="/" aria-label="hello.ando, home">
+    <!-- wordmark.svg takes its colours from design-system tokens through <use> -->
+    <svg viewBox="0 0 6177.8 887.4" aria-hidden="true" focusable="false">
+      <use href="/wordmark.svg#logo"></use>
+    </svg>
+  </a>
+  <!-- hidden until theme-toggle.ts wires it up, so it never shows without JS -->
+  <button
+    id="theme-toggle"
+    class="ui-button ui-button--icon"
+    type="button"
+    aria-label="Theme: System"
+    hidden></button>
+</header>
+
+<script>
+  import { initThemeToggle } from "../scripts/theme-toggle.ts";
+
+  const themeButton = document.querySelector<HTMLButtonElement>("#theme-toggle");
+  if (themeButton) initThemeToggle(themeButton);
+</script>
