@@ -36,15 +36,17 @@ jobs:
         with:
           cache: true
 
+      # `vp run` runs the package.json script (tsc + astro build); plain
+      # `vp build` is Vite's own build and looks for an index.html
       - name: Build site
         run: |
-          vp -C apps/website build --outDir ../../dist --emptyOutDir
+          vp run hello_ando#build
 
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: apps/hello_ando/dist
 
   deploy:
     needs: build

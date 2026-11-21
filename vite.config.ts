@@ -2,6 +2,14 @@ import { defineConfig } from "vite-plus";
 
 export default defineConfig({
   fmt: {
+    ignorePatterns: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      ".vscode/**",
+      ".idea/**",
+      ".git/**",
+    ],
     sortPackageJson: true,
     insertFinalNewline: true,
   },

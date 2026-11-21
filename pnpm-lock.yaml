@@ -255,7 +255,7 @@ importers:
         specifier: 'catalog:'
         version: 1.6.0(@astrojs/compiler-rs@0.5.3)(@types/node@26.6.6)(@vitest/ui@5.1.0)(svelte@5.57.3)(typescript@7.0.2)(yaml@2.9.1)
 
-  apps/stellar-star:
+  apps/hello_ando:
     dependencies:
       astro:
         specifier: ^7.4.13

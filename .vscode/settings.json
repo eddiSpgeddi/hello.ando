@@ -22,7 +22,7 @@
   },
   "js/ts.experimental.useTsgo": true,
   "[html]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "cssVariables.lookupFiles": [
     "**/*.css",
